@@ -1,5 +1,6 @@
 name: pikpak_auto_invite
 on:
+  workflow_dispatch: # 允许手动触发工作流
   push:
     branches: [ main ]
     paths:
@@ -8,7 +9,7 @@ on:
       - '!README.md'
   schedule:
     # 每天晚六点十分执行一次
-    - cron:  '10 18 * * *'
+    - cron:  '10 10 * * *'
 
 jobs:
   build:
@@ -24,4 +25,5 @@ jobs:
       - name: Run
         env:
           INVITE_CODE: ${{secrets.INVITE_CODE}}
+          PUSHPLUS_TOKEN: ${{secrets.PUSHPLUS_TOKEN}}
         run: python run.py
